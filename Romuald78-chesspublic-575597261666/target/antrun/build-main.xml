@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main">
+  <echo>Using env.test.properties</echo>
+  <copy todir="/Users/azz-kevinf/Documents/Cours/L1/C1/Sem12-POOA/POOARomu/Romuald78-chesspublic-575597261666/target/../lib">
+    <fileset includes="**" dir="/Users/azz-kevinf/Documents/Cours/L1/C1/Sem12-POOA/POOARomu/Romuald78-chesspublic-575597261666/target/natives"/>
+  </copy>
+  <copy todir="/Users/azz-kevinf/Documents/Cours/L1/C1/Sem12-POOA/POOARomu/Romuald78-chesspublic-575597261666/target/..">
+    <fileset includes="**" dir="/Users/azz-kevinf/Documents/Cours/L1/C1/Sem12-POOA/POOARomu/Romuald78-chesspublic-575597261666/target/../src/main/resources"/>
+  </copy>
+</target>
+</project>
