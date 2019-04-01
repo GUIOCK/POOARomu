@@ -18,6 +18,10 @@ import java.util.List;
 public class ChessModel implements IChess{
     
     private static ChessModel INSTANCE;
+
+    // We create a new Object ChessBoard to set the place of all pawns.
+    
+    private ChessBoard chessboard;
     
     private ChessModel(){
         
@@ -26,7 +30,7 @@ public class ChessModel implements IChess{
     public static ChessModel getInstance(){
         if(ChessModel.INSTANCE == null){
             ChessModel.INSTANCE = new ChessModel();
-    
+            
         }
         return ChessModel.INSTANCE;
     }
@@ -34,17 +38,38 @@ public class ChessModel implements IChess{
     @Override
     public void reinit() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        
+       this.chessboard = new ChessBoard();
     }
 
     @Override
     public ChessType getPieceType(ChessPosition p) throws EmptyCellException, OutOfBoardException {
-        throw new EmptyCellException();
+        
+
+        // Checking if pieces are out of bound or not there.
+        
+        
+        if (p.x > IChess.BOARD_WIDTH || p.y > IChess.BOARD_HEIGHT){
+            throw new OutOfBoardException();
+        }
+        else if (chessboard.getBoard(p) == null) {
+            throw new EmptyCellException();
+        }
+        else{
+            return chessboard.getBoard(p).getType();
+        } 
     }
 
     @Override
     public ChessColor getPieceColor(ChessPosition p) throws EmptyCellException, OutOfBoardException {
-        throw new EmptyCellException();
+         if (p.x > IChess.BOARD_WIDTH || p.y > IChess.BOARD_HEIGHT){
+            throw new OutOfBoardException();
+        }
+        else if (chessboard.getBoard(p) == null) {
+            throw new EmptyCellException();
+        }
+        else{
+            return chessboard.getBoard(p).getColor();
+        } 
     }
 
     @Override
