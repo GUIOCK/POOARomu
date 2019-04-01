@@ -74,7 +74,7 @@ public class ChessModel implements IChess{
 
     @Override
     public int getNbRemainingPieces(ChessColor color) {
-        return 0;
+        return chessboard.getNbRemainingPieces(color);
     }
 
     @Override
@@ -106,10 +106,4 @@ public class ChessModel implements IChess{
         return 50000;
     }
 
-    
-    
-    
-    
-    
-    
 }

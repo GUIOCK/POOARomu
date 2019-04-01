@@ -6,6 +6,7 @@
 package fr.rphstudio.chess.game;
 
 import fr.rphstudio.chess.interf.IChess;
+import fr.rphstudio.chess.interf.IChess.ChessColor;
 
 /**
  *
@@ -92,6 +93,28 @@ public class ChessBoard{
         
         return this.board[pos.y][pos.x];
         
+    }
+    
+    public int getNbRemainingPieces(ChessColor color){
+        
+        //Initialize a counter for the Pieces left on the board.
+        int nbPiecesLeft= 0; 
+        
+        // We parcour the board and check if there's colors.
+        for (int i = 0; i < IChess.BOARD_HEIGHT; i++){
+            for (int j = 0; j < IChess.BOARD_WIDTH; j++){
+                
+                if (board[i][j] != null){
+                    
+                    if(board[i][j].getColor() == color){
+                        nbPiecesLeft++;
+                    }
+                    
+                }
+            } 
+        }
+        
+        return nbPiecesLeft;
     }
     
 }
