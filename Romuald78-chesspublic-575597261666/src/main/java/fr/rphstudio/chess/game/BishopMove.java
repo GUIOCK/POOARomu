@@ -5,10 +5,37 @@
  */
 package fr.rphstudio.chess.game;
 
+import fr.rphstudio.chess.interf.IChess;
+import fr.rphstudio.chess.interf.IMove;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author azz-kevinf
  */
-public class BishopMove {
-    
+public class BishopMove implements IMove{
+    @Override
+    public List<IChess.ChessPosition> getPossibleMove(IChess.ChessPosition pos, ChessBoard board) {
+        
+        IChess.ChessPosition possiblePos;
+        List<IChess.ChessPosition> ListPossiblePos = new ArrayList<IChess.ChessPosition>();
+        
+        for(int i = 0; i < IChess.BOARD_HEIGHT; i++) {
+            for (int j = 0; j < IChess.BOARD_WIDTH; j++) {
+                if(Math.abs((i-pos.x)) + Math.abs((j-pos.y)) == 3){
+                    possiblePos = new IChess.ChessPosition(i, j);
+                    if (null != board.getPiece(possiblePos)){
+                        if( board.getPiece(possiblePos).getColor() != board.getPiece(pos).getColor()){
+                            ListPossiblePos.add(possiblePos);
+                        }
+                    }
+                    else {
+                        ListPossiblePos.add(possiblePos);
+                    }     
+                }
+            } 
+        }
+        return ListPossiblePos;
+    }
 }

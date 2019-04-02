@@ -37,11 +37,11 @@ public class ChessBoard{
         board[IChess.BOARD_POS_Y_WHITE_PIECES][IChess.BOARD_POS_X_KING]=
                 new Piece(IChess.ChessColor.CLR_WHITE, 
                         IChess.ChessType.TYP_KING,
-                        new KnightMove());
+                        new KingMove());
         board[IChess.BOARD_POS_Y_WHITE_PIECES][IChess.BOARD_POS_X_QUEEN]=
                 new Piece(IChess.ChessColor.CLR_WHITE, 
                         IChess.ChessType.TYP_QUEEN,
-                        new KnightMove());
+                        new QueenMove());
         board[IChess.BOARD_POS_Y_WHITE_PIECES][IChess.BOARD_POS_X_KINGSIDE_BISHOP]=
                 new Piece(IChess.ChessColor.CLR_WHITE, 
                         IChess.ChessType.TYP_BISHOP,
@@ -79,11 +79,11 @@ public class ChessBoard{
         board[IChess.BOARD_POS_Y_BLACK_PIECES][IChess.BOARD_POS_X_KING]=
                 new Piece(IChess.ChessColor.CLR_BLACK, 
                         IChess.ChessType.TYP_KING,
-                        new KnightMove());
+                        new KingMove());
         board[IChess.BOARD_POS_Y_BLACK_PIECES][IChess.BOARD_POS_X_QUEEN]=
                 new Piece(IChess.ChessColor.CLR_BLACK, 
                         IChess.ChessType.TYP_QUEEN,
-                        new KnightMove());
+                        new QueenMove());
         board[IChess.BOARD_POS_Y_BLACK_PIECES][IChess.BOARD_POS_X_KINGSIDE_BISHOP]=
                 new Piece(IChess.ChessColor.CLR_BLACK, 
                         IChess.ChessType.TYP_BISHOP,

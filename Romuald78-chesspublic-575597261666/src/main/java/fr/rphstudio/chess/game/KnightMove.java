@@ -25,7 +25,6 @@ public class KnightMove implements IMove{
         
         IChess.ChessPosition possiblePos;
         List<IChess.ChessPosition> ListPossiblePos = new ArrayList<ChessPosition>();
-        ChessColor colorStart = board.getPiece(pos).getColor();;
         
         for(int i = 0; i < IChess.BOARD_HEIGHT; i++) {
             for (int j = 0; j < IChess.BOARD_WIDTH; j++) {
