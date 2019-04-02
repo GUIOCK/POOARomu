@@ -51,11 +51,11 @@ public class ChessModel implements IChess{
         if (p.x > IChess.BOARD_WIDTH || p.y > IChess.BOARD_HEIGHT){
             throw new OutOfBoardException();
         }
-        else if (chessboard.getBoard(p) == null) {
+        else if (chessboard.getPiece(p) == null) {
             throw new EmptyCellException();
         }
         else{
-            return chessboard.getBoard(p).getType();
+            return chessboard.getPiece(p).getType();
         } 
     }
 
@@ -64,11 +64,11 @@ public class ChessModel implements IChess{
          if (p.x > IChess.BOARD_WIDTH || p.y > IChess.BOARD_HEIGHT){
             throw new OutOfBoardException();
         }
-        else if (chessboard.getBoard(p) == null) {
+        else if (chessboard.getPiece(p) == null) {
             throw new EmptyCellException();
         }
         else{
-            return chessboard.getBoard(p).getColor();
+            return chessboard.getPiece(p).getColor();
         } 
     }
 
@@ -79,7 +79,12 @@ public class ChessModel implements IChess{
 
     @Override
     public List<ChessPosition> getPieceMoves(ChessPosition p) {
-        return new ArrayList<>();
+        List<ChessPosition> listPiece = new ArrayList<ChessPosition>();
+        Piece piece = chessboard.getPiece(p);
+        if (null != piece){
+            listPiece = piece.getMoves(p, chessboard);
+        }
+        return listPiece;   
     }
 
     @Override
