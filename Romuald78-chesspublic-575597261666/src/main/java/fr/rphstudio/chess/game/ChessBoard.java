@@ -7,7 +7,10 @@ package fr.rphstudio.chess.game;
 
 import fr.rphstudio.chess.interf.IChess;
 import fr.rphstudio.chess.interf.IChess.ChessColor;
+import fr.rphstudio.chess.interf.IChess.ChessKingState;
 import fr.rphstudio.chess.interf.IChess.ChessPosition;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -143,5 +146,56 @@ public class ChessBoard{
     public void movePiece(ChessPosition pFirst, ChessPosition pFinal){
         board[pFinal.y][pFinal.x] = board[pFirst.y][pFirst.x];
         board[pFirst.y][pFirst.x] = null;
+    }
+    
+    public ChessKingState getKingState(ChessColor color){
+        
+        ChessPosition kingPos = null;
+        ChessPosition pos;
+        
+        for(int i = 0; i < IChess.BOARD_HEIGHT; i++) {
+            for (int j = 0; j < IChess.BOARD_WIDTH; j++) {
+                
+                pos = new ChessPosition(i, j);
+                if(getPiece(pos) != null){ 
+                    if(getPiece(pos).getColor() == color && getPiece(pos).getType() == IChess.ChessType.TYP_KING) {
+                        kingPos = pos;
+                        break;
+                    }
+                }
+               
+            }
+            if(kingPos != null) {
+                break;
+            }
+        }
+                
+        List<ChessPosition> listPos = new ArrayList<>();
+        
+        for(int i = 0; i < IChess.BOARD_HEIGHT; i++) {
+            for (int j = 0; j < IChess.BOARD_WIDTH; j++) {
+                pos = new ChessPosition(i, j); 
+                
+                if(getPiece(pos)!= null){
+                    
+                    listPos = getPiece(pos).getMoves(pos, this);
+                    
+                    for (ChessPosition possiblePos : listPos) {
+                        if(possiblePos.equals(kingPos)){
+                            return ChessKingState.KING_THREATEN;
+                        }
+                    }
+                            
+                }
+                
+                
+                //End 2nd for
+            }
+            
+            // End first for
+        }
+        
+        return ChessKingState.KING_SAFE;
+        //Here return
     }
 }
