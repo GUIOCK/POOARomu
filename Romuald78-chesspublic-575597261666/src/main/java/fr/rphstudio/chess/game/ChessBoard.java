@@ -109,8 +109,12 @@ public class ChessBoard{
     
     
     public Piece getPiece(IChess.ChessPosition pos){
-        
-        return this.board[pos.y][pos.x];
+        if (pos.x <= 7 && pos.x >= 0 && pos.y <= 7 && pos.y >=0){
+            return this.board[pos.y][pos.x];
+        }
+        else {
+            return null;
+        }
         
     }
     

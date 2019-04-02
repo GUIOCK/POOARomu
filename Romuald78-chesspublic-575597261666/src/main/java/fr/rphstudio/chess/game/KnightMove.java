@@ -29,20 +29,21 @@ public class KnightMove implements IMove{
         
         for(int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                    if(Math.abs(i-pos.x) + Math.abs(j-pos.y) == 3){
-                        if(i-pos.x != 0 && j - pos.y != 0){
-                            possiblePos = new ChessPosition(i, j);
-                            if(board.getPiece(possiblePos) != null){
-                                if(board.getPiece(possiblePos).getColor() != colorStart){
-                                    ListPossiblePos.add(possiblePos);
-                                }
-                            } else{
+                if(Math.abs((i-pos.x))+Math.abs((j-pos.y)) ==3 ){
+
+                    if(i-pos.x != 0 && j - pos.y != 0){
+                        possiblePos = new ChessPosition(i, j);
+                        if (null != board.getPiece(possiblePos)){
+                            if( board.getPiece(possiblePos).getColor() != board.getPiece(pos).getColor()){
                                 ListPossiblePos.add(possiblePos);
                             }
-                            
                         }
-                    } 
-                
+                        else {
+                            ListPossiblePos.add(possiblePos);
+                        }
+                    }
+                    
+                }
             } 
         }
         return ListPossiblePos;
