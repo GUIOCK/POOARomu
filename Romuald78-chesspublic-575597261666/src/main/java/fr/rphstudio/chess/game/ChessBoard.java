@@ -7,6 +7,7 @@ package fr.rphstudio.chess.game;
 
 import fr.rphstudio.chess.interf.IChess;
 import fr.rphstudio.chess.interf.IChess.ChessColor;
+import fr.rphstudio.chess.interf.IChess.ChessPosition;
 
 /**
  *
@@ -135,4 +136,8 @@ public class ChessBoard{
         return nbPiecesLeft;
     }
     
+    public void movePiece(ChessPosition pFirst, ChessPosition pFinal){
+        board[pFinal.y][pFinal.x] = board[pFirst.y][pFirst.x];
+        board[pFirst.y][pFirst.x] = null;
+    }
 }
