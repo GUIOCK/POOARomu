@@ -17,6 +17,9 @@ import java.util.List;
  * @author guiockanthony
  */
 public class ChessBoard{
+
+
+
     
     private Piece[][] board = new Piece[IChess.BOARD_HEIGHT][IChess.BOARD_WIDTH];
     
@@ -29,7 +32,7 @@ public class ChessBoard{
             board[IChess.BOARD_POS_Y_WHITE_PAWNS][i] = 
                     new Piece(IChess.ChessColor.CLR_WHITE, 
                             IChess.ChessType.TYP_PAWN,
-                            new KnightMove());
+                            new PawnMove());
         }
         
         
@@ -72,7 +75,7 @@ public class ChessBoard{
             board[IChess.BOARD_POS_Y_BLACK_PAWNS][i] = 
                     new Piece(IChess.ChessColor.CLR_BLACK, 
                             IChess.ChessType.TYP_PAWN,
-                            new KnightMove()); 
+                            new PawnMove()); 
         }
         
         // Black Figures placement.
@@ -147,6 +150,7 @@ public class ChessBoard{
         board[pFinal.y][pFinal.x] = board[pFirst.y][pFirst.x];
         board[pFirst.y][pFirst.x] = null;
     }
+   
     
     public ChessKingState getKingState(ChessColor color){
         
