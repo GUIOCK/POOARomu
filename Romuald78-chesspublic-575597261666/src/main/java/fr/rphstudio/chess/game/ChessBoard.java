@@ -147,6 +147,7 @@ public class ChessBoard{
     }
     
     public void movePiece(ChessPosition pFirst, ChessPosition pFinal){
+        this.getPiece(pFirst).incMoveCount();
         board[pFinal.y][pFinal.x] = board[pFirst.y][pFirst.x];
         board[pFirst.y][pFirst.x] = null;
     }

@@ -23,21 +23,47 @@ public class PawnMove implements IMove {
         
         IChess.ChessPosition possiblePos;
         List<IChess.ChessPosition> ListPossiblePos = new ArrayList<IChess.ChessPosition>();
+        IChess.ChessPosition eatPos;
         
         if (board.getPiece(pos).getColor() == IChess.ChessColor.CLR_WHITE) {
             if (board.getPiece(pos).getMoveCount() == 0){
+                possiblePos = new IChess.ChessPosition(pos.x,pos.y-2);
+                if(board.getPiece(possiblePos) == null){
+                    ListPossiblePos.add(possiblePos);
+                }
+            }
             possiblePos = new IChess.ChessPosition(pos.x,pos.y-1);
-            possiblePos = new IChess.ChessPosition(pos.x,pos.y-2);
-            ListPossiblePos.add(possiblePos);
-        }
-            else{
-            possiblePos = new IChess.ChessPosition(pos.x,pos.y-1);
-            ListPossiblePos.add(possiblePos);    
+            if(board.getPiece(possiblePos) == null){
+                    ListPossiblePos.add(possiblePos);
+                }
+            for(int i = -1; i < 2; i+=2){
+                eatPos = new IChess.ChessPosition(pos.x + i, pos.y - 1);
+                if(board.getPiece(eatPos) != null){
+                    if(!board.getPiece(eatPos).getColor().equals(board.getPiece(pos).getColor())){
+                        ListPossiblePos.add(eatPos);
                     }
+                }
+            }
         }
-        else if (board.getPiece(pos).getColor() == IChess.ChessColor.CLR_BLACK){
+        else{
+            if (board.getPiece(pos).getMoveCount() == 0){
+                possiblePos = new IChess.ChessPosition(pos.x,pos.y+2);
+                if(board.getPiece(possiblePos) == null){
+                    ListPossiblePos.add(possiblePos);
+                }
+            }
             possiblePos = new IChess.ChessPosition(pos.x,pos.y+1);
-            ListPossiblePos.add(possiblePos);
+            if(board.getPiece(possiblePos) == null){
+                    ListPossiblePos.add(possiblePos);
+                }
+            for(int i = -1; i < 2; i+=2){
+                eatPos = new IChess.ChessPosition(pos.x + i, pos.y +1);
+                if(board.getPiece(eatPos) != null){
+                    if(!board.getPiece(eatPos).getColor().equals(board.getPiece(pos).getColor())){
+                        ListPossiblePos.add(eatPos);
+                    }
+                }
+            }
         }
         /*       
                 if( possiblePos.y >= 1 && possiblePos.x == 1 ){
