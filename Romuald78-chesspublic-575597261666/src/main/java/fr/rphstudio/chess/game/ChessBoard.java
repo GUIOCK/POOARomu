@@ -164,9 +164,17 @@ public class ChessBoard{
                 blackP.add(board[pFinal.y][pFinal.x].getType());
             }
         }
-        board[pFinal.y][pFinal.x] = board[pFirst.y][pFirst.x];
         
+        board[pFinal.y][pFinal.x] = board[pFirst.y][pFirst.x];
+        if(board[pFirst.y][pFirst.x].getType() == IChess.ChessType.TYP_PAWN){
+            if(pFinal.x == 7 || pFinal.x == 0){
+                board[pFinal.y][pFinal.x] = new Piece(board[pFirst.y][pFirst.x].getColor(), 
+                        IChess.ChessType.TYP_QUEEN, 
+                        new QueenMove());
+            }
+        }
         board[pFirst.y][pFirst.x] = null;
+        
     }
    
     
