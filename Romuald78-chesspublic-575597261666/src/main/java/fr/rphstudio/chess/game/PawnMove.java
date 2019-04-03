@@ -22,7 +22,7 @@ public class PawnMove implements IMove {
     public List<IChess.ChessPosition> getPossibleMove(IChess.ChessPosition pos, ChessBoard board) {
         
         IChess.ChessPosition possiblePos;
-        List<IChess.ChessPosition> ListPossiblePos = new ArrayList<IChess.ChessPosition>();
+        List<IChess.ChessPosition> ListPossiblePos = new ArrayList<>();
         IChess.ChessPosition eatPos;
         
         //Choose the pawn color (white)

@@ -17,34 +17,6 @@ import java.util.List;
 public class BishopMove implements IMove{
     @Override
     public List<IChess.ChessPosition> getPossibleMove(IChess.ChessPosition pos, ChessBoard board) {
-        
-        IChess.ChessPosition possiblePos;
-        List<IChess.ChessPosition> listPossiblePos = new ArrayList<IChess.ChessPosition>();
-
-        for (int dir = 0; dir <= 3; dir++){
-            int dx = 1;
-            int dy = 1;
-            if(dir >= 2){
-                dx = -1;
-            }
-            if (dir % 2 ==0){
-                dy = -1;
-            }
-            for (int dist = 1; dist <= 7; dist++){
-                IChess.ChessPosition nxtPos = new IChess.ChessPosition(pos.x + (dist*dx), pos.y + (dist*dy));
-                if (nxtPos.x <=7 && nxtPos.x >=0 && nxtPos.y >=0 && nxtPos.y <=7){ 
-                    if (null != board.getPiece(nxtPos)){
-                        if(board.getPiece(nxtPos).getColor() != board.getPiece(pos).getColor()){
-                            listPossiblePos.add(nxtPos);            
-                        }
-                        break;
-                    }
-                    else {
-                                listPossiblePos.add(nxtPos);
-                    }
-                }
-            }
-        }
-        return listPossiblePos;
+        return UtilMove.DiagonalMove(pos, board);
     }
 }
