@@ -19,23 +19,32 @@ public class BishopMove implements IMove{
     public List<IChess.ChessPosition> getPossibleMove(IChess.ChessPosition pos, ChessBoard board) {
         
         IChess.ChessPosition possiblePos;
-        List<IChess.ChessPosition> ListPossiblePos = new ArrayList<IChess.ChessPosition>();
-        
-        for(int i = 0; i < IChess.BOARD_HEIGHT; i++) {
-            for (int j = 0; j < IChess.BOARD_WIDTH; j++) {
-                if(Math.abs(i-pos.x) - Math.abs(j-pos.y) == 0){
-                    possiblePos = new IChess.ChessPosition(i, j);
-                    if (null != board.getPiece(possiblePos)){
-                        if( board.getPiece(possiblePos).getColor() != board.getPiece(pos).getColor()){
-                            ListPossiblePos.add(possiblePos);
-                        }     
+        List<IChess.ChessPosition> listPossiblePos = new ArrayList<IChess.ChessPosition>();
+
+        for (int dir = 0; dir <= 3; dir++){
+            int dx = 1;
+            int dy = 1;
+            if(dir >= 2){
+                dx = -1;
+            }
+            if (dir % 2 ==0){
+                dy = -1;
+            }
+            for (int dist = 1; dist <= 7; dist++){
+                IChess.ChessPosition nxtPos = new IChess.ChessPosition(pos.x + (dist*dx), pos.y + (dist*dy));
+                if (nxtPos.x <=7 && nxtPos.x >=0 && nxtPos.y >=0 && nxtPos.y <=7){ 
+                    if (null != board.getPiece(nxtPos)){
+                        if(board.getPiece(nxtPos).getColor() != board.getPiece(pos).getColor()){
+                            listPossiblePos.add(nxtPos);            
+                        }
+                        break;
                     }
                     else {
-                        ListPossiblePos.add(possiblePos);
-                    }     
+                                listPossiblePos.add(nxtPos);
+                    }
                 }
-            } 
+            }
         }
-        return ListPossiblePos;
+        return listPossiblePos;
     }
 }
