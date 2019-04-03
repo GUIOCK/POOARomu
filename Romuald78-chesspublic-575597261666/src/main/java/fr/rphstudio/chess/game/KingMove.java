@@ -25,7 +25,7 @@ public class KingMove implements IMove {
         for(int i = -1; i < 2; i++){
             for(int j = -1; j < 2; j++){
                 possiblePos = new IChess.ChessPosition(i+pos.x, j+pos.y);
-                if(possiblePos.x > 0 && possiblePos.y > 0
+                if(possiblePos.x >= 0 && possiblePos.y >= 0
                         && possiblePos.x < IChess.BOARD_WIDTH && possiblePos.y < IChess.BOARD_HEIGHT){
                     if (null != board.getPiece(possiblePos)){
                         if( board.getPiece(possiblePos).getColor() != board.getPiece(pos).getColor()){
