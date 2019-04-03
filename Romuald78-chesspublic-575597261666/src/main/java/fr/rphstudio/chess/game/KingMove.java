@@ -22,21 +22,22 @@ public class KingMove implements IMove {
         IChess.ChessPosition possiblePos;
         List<IChess.ChessPosition> ListPossiblePos = new ArrayList<IChess.ChessPosition>();
         
-        for(int i = 0; i < IChess.BOARD_HEIGHT; i++) {
-            for (int j = 0; j < IChess.BOARD_WIDTH; j++) {
-                if(Math.abs((i-pos.x)) + Math.abs((j-pos.y)) <= 2 && Math.abs(i-pos.x) <2 && Math.abs(j-pos.y) <2){
-                    possiblePos = new IChess.ChessPosition(i, j);
+        for(int i = -1; i < 2; i++){
+            for(int j = -1; j < 2; j++){
+                possiblePos = new IChess.ChessPosition(i+pos.x, j+pos.y);
+                if(possiblePos.x > 0 && possiblePos.y > 0
+                        && possiblePos.x < IChess.BOARD_WIDTH && possiblePos.y < IChess.BOARD_HEIGHT){
                     if (null != board.getPiece(possiblePos)){
                         if( board.getPiece(possiblePos).getColor() != board.getPiece(pos).getColor()){
                             ListPossiblePos.add(possiblePos);
                         }
-                    }
-                    else {
+                    }else{
                         ListPossiblePos.add(possiblePos);
-                    }     
+                    }
                 }
-            } 
+            }
         }
+        
         return ListPossiblePos;
     }
 }
