@@ -26,51 +26,59 @@ public class PawnMove implements IMove {
         IChess.ChessPosition eatPos;
         
         //Choose the pawn color (white)
-        if (board.getPiece(pos).getColor() == IChess.ChessColor.CLR_WHITE) {
-            if (board.getPiece(pos).getMoveCount() == 0){
-                possiblePos = new IChess.ChessPosition(pos.x,pos.y-2);
+            if (board.getPiece(pos).getColor() == IChess.ChessColor.CLR_WHITE) {
+                if (board.getPiece(pos).getMoveCount() == 0){
+                    possiblePos = new IChess.ChessPosition(pos.x,pos.y-2);
+                    if (possiblePos.x <=7 && possiblePos.x >=0 && possiblePos.y >=0 && possiblePos.y <=7){ 
+                        if(board.getPiece(possiblePos) == null && board.getPiece(new IChess.ChessPosition(pos.x, pos.y-1))== null){
+                            ListPossiblePos.add(possiblePos);
+                        }
+                    }
+                }
+                possiblePos = new IChess.ChessPosition(pos.x,pos.y-1);
+                if (possiblePos.x <=7 && possiblePos.x >=0 && possiblePos.y >=0 && possiblePos.y <=7){ 
+                    if(board.getPiece(possiblePos) == null){
+                        ListPossiblePos.add(possiblePos);
+                    }
+                for(int i = -1; i < 2; i+=2){
+                    eatPos = new IChess.ChessPosition(pos.x + i, pos.y - 1);
+                    if(board.getPiece(eatPos) != null){
+                        if(!board.getPiece(eatPos).getColor().equals(board.getPiece(pos).getColor())){
+                            ListPossiblePos.add(eatPos);
+                        }
+                    }
+                }
+                }
+            }
+            //Choose the pawn color (black)
+            else{
+                //The pawn movement , we say if he never move he can move 2 "y" or 1 "y"
+                if (board.getPiece(pos).getMoveCount() == 0){
+                    possiblePos = new IChess.ChessPosition(pos.x,pos.y+2);
+                    if (possiblePos.x <=7 && possiblePos.x >=0 && possiblePos.y >=0 && possiblePos.y <=7){ 
+                        if(board.getPiece(possiblePos) == null && board.getPiece(new IChess.ChessPosition(pos.x, pos.y+1))== null){
+                            ListPossiblePos.add(possiblePos);
+                        }
+                    }
+                }
+                //Can onmy move 1 "y"
+                possiblePos = new IChess.ChessPosition(pos.x,pos.y+1);
+                if (possiblePos.x <=7 && possiblePos.x >=0 && possiblePos.y >=0 && possiblePos.y <=7){ 
+                //Can't move if the case in front him are null 
                 if(board.getPiece(possiblePos) == null){
                     ListPossiblePos.add(possiblePos);
                 }
-            }
-            possiblePos = new IChess.ChessPosition(pos.x,pos.y-1);
-            if(board.getPiece(possiblePos) == null){
-                    ListPossiblePos.add(possiblePos);
-                }
-            for(int i = -1; i < 2; i+=2){
-                eatPos = new IChess.ChessPosition(pos.x + i, pos.y - 1);
-                if(board.getPiece(eatPos) != null){
-                    if(!board.getPiece(eatPos).getColor().equals(board.getPiece(pos).getColor())){
-                        ListPossiblePos.add(eatPos);
+                // Eat only in diagonal if a enemy are here
+                for(int i = -1; i < 2; i+=2){
+                    eatPos = new IChess.ChessPosition(pos.x + i, pos.y +1);
+                    if(board.getPiece(eatPos) != null){
+                        if(!board.getPiece(eatPos).getColor().equals(board.getPiece(pos).getColor())){
+                            ListPossiblePos.add(eatPos);
+                        }
                     }
                 }
-            }
-        }
-        //Choose the pawn color (black)
-        else{
-            //The pawn movement , we say if he never move he can move 2 "y" or 1 "y"
-            if (board.getPiece(pos).getMoveCount() == 0){
-                possiblePos = new IChess.ChessPosition(pos.x,pos.y+2);
-                if(board.getPiece(possiblePos) == null){
-                    ListPossiblePos.add(possiblePos);
                 }
             }
-            //Can onmy move 1 "y"
-            possiblePos = new IChess.ChessPosition(pos.x,pos.y+1);
-            //Can't move if the case in front him are null 
-            if(board.getPiece(possiblePos) == null){
-                    ListPossiblePos.add(possiblePos);
-                }
-            // Eat only in diagonal if a enemy are here
-            for(int i = -1; i < 2; i+=2){
-                eatPos = new IChess.ChessPosition(pos.x + i, pos.y +1);
-                if(board.getPiece(eatPos) != null){
-                    if(!board.getPiece(eatPos).getColor().equals(board.getPiece(pos).getColor())){
-                        ListPossiblePos.add(eatPos);
-                    }
-                }
-            }
-        }
    
         return ListPossiblePos;
     }
