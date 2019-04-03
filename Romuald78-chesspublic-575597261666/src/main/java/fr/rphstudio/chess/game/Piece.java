@@ -51,6 +51,14 @@ public class Piece {
     public void decMoveCount(){
         this.moveCount--;
     }
+    public void setMoveCount(int moveCount){
+        this.moveCount = moveCount;
+    }
+    public Piece clone(){
+        Piece p = new Piece(this.color, this.type, this.move);
+        p.setMoveCount(this.moveCount);
+        return p;
+    }
     
 }
 

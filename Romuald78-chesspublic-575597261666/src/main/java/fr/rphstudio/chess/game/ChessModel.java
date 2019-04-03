@@ -78,18 +78,33 @@ public class ChessModel implements IChess{
     }
 
     @Override
-    public List<ChessPosition> getPieceMoves(ChessPosition p) {
+    public List<ChessPosition> getPieceMoves(ChessPosition cp) {
         List<ChessPosition> listPiece = new ArrayList<>();
-        Piece piece = chessboard.getPiece(p);
+        List<ChessPosition> listOut = new ArrayList<>();
+        Piece piece = chessboard.getPiece(cp);
         if (null != piece){
-            listPiece = piece.getMoves(p, chessboard);
+            listPiece = piece.getMoves(cp, chessboard);
         }
-        return listPiece;   
+        IChess.ChessColor selfColor = chessboard.getPiece(cp).getColor();
+        if(listPiece != null){
+            for (ChessPosition possiblePos : listPiece) {
+                ChessBoard cloB = chessboard.clone();
+                cloB.movePiece(cp, possiblePos);
+                if(cloB.getKingState(selfColor) != IChess.ChessKingState.KING_THREATEN){
+                    //listPiece.remove(possiblePos);
+                    listOut.add(possiblePos);
+                }
+
+            }
+        }
+        return listOut;   
     }
 
     @Override
     public void movePiece(ChessPosition p0, ChessPosition p1) {
         chessboard.movePiece(p0, p1);
+        
+       
    }
 
     @Override

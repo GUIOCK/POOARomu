@@ -178,7 +178,7 @@ public class ChessBoard{
         for(int i = 0; i < IChess.BOARD_HEIGHT; i++) {
             for (int j = 0; j < IChess.BOARD_WIDTH; j++) {
                 
-                pos = new ChessPosition(i, j);
+                pos = new ChessPosition(j, i);
                 if(getPiece(pos) != null){ 
                     if(getPiece(pos).getColor() == color && getPiece(pos).getType() == IChess.ChessType.TYP_KING) {
                         kingPos = pos;
@@ -196,7 +196,7 @@ public class ChessBoard{
         
         for(int i = 0; i < IChess.BOARD_HEIGHT; i++) {
             for (int j = 0; j < IChess.BOARD_WIDTH; j++) {
-                pos = new ChessPosition(i, j); 
+                pos = new ChessPosition(j, i); 
                 
                 if(getPiece(pos)!= null){
                     
@@ -219,5 +219,18 @@ public class ChessBoard{
         
         return ChessKingState.KING_SAFE;
         //Here return
+    }
+    
+    public ChessBoard clone(){
+        ChessBoard cloB = new ChessBoard();
+        for(int i = 0; i < IChess.BOARD_HEIGHT; i++){
+            for(int j = 0; j < IChess.BOARD_WIDTH; j++){
+                cloB.board[i][j] = null;
+                if(null != this.board[i][j]){
+                    cloB.board[i][j] = this.board[i][j].clone();
+                }
+            }
+        }
+        return cloB;
     }
 }
