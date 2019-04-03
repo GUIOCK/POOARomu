@@ -109,7 +109,7 @@ public class ChessModel implements IChess{
 
     @Override
     public long getPlayerDuration(ChessColor color, boolean isPlaying) {
-        return 50000;
+        return 50000000;
     }
 
 }

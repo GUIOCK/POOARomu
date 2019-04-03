@@ -22,6 +22,7 @@ public class Piece {
     private ChessColor color;
     private ChessType type;
     private IMove move;
+    private int moveCount = 0;
          
     public Piece(ChessColor color, ChessType type, IMove move){
         this.color = color;
@@ -41,6 +42,15 @@ public class Piece {
         return move.getPossibleMove(pos, board);
     }
     
+    public int getMoveCount(){
+        return moveCount;
+    }
+    public void incMoveCount(){
+        this.moveCount++;
+    }
+    public void decMoveCount(){
+        this.moveCount--;
+    }
     
 }
 
