@@ -20,6 +20,5 @@ public interface IMove {
      * @param board
      * @return
      */
-    
     public List<IChess.ChessPosition> getPossibleMove(IChess.ChessPosition pos, ChessBoard board);
 }

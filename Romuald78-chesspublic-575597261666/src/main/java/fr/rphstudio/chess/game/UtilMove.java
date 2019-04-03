@@ -72,7 +72,7 @@ public class UtilMove {
             }
             for (int dist = 1; dist < IChess.BOARD_HEIGHT; dist++){
                 nxtPos = new IChess.ChessPosition(pos.x + (dist*dx), pos.y + (dist*dy));
-                if (nxtPos.x <=7 && nxtPos.x >=0 && nxtPos.y >=0 && nxtPos.y <=7){ 
+                if (nxtPos.x <= 7 && nxtPos.x >= 0 && nxtPos.y >= 0 && nxtPos.y <= 7) {
                     if (null != board.getPiece(nxtPos)){
                         if(board.getPiece(nxtPos).getColor() != board.getPiece(pos).getColor()){
                             listPossiblePos.add(nxtPos);            

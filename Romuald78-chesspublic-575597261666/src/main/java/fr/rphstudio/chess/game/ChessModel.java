@@ -15,22 +15,21 @@ import java.util.List;
  *
  * @author azz-kevinf
  */
-public class ChessModel implements IChess{
-    
+public class ChessModel implements IChess {
+
     private static ChessModel INSTANCE;
 
     // We create a new Object ChessBoard to set the place of all pawns.
-    
     private ChessBoard chessboard;
-    
-    private ChessModel(){
-        
+
+    private ChessModel() {
+
     }
-    
-    public static ChessModel getInstance(){
-        if(ChessModel.INSTANCE == null){
+
+    public static ChessModel getInstance() {
+        if (ChessModel.INSTANCE == null) {
             ChessModel.INSTANCE = new ChessModel();
-            
+
         }
         return ChessModel.INSTANCE;
     }
@@ -38,38 +37,31 @@ public class ChessModel implements IChess{
     @Override
     public void reinit() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-       this.chessboard = new ChessBoard();
+        this.chessboard = new ChessBoard();
     }
 
     @Override
     public ChessType getPieceType(ChessPosition p) throws EmptyCellException, OutOfBoardException {
-        
 
         // Checking if pieces are out of bound or not there.
-        
-        
-        if (p.x > IChess.BOARD_WIDTH || p.y > IChess.BOARD_HEIGHT){
+        if (p.x > IChess.BOARD_WIDTH || p.y > IChess.BOARD_HEIGHT) {
             throw new OutOfBoardException();
-        }
-        else if (chessboard.getPiece(p) == null) {
+        } else if (chessboard.getPiece(p) == null) {
             throw new EmptyCellException();
-        }
-        else{
+        } else {
             return chessboard.getPiece(p).getType();
-        } 
+        }
     }
 
     @Override
     public ChessColor getPieceColor(ChessPosition p) throws EmptyCellException, OutOfBoardException {
-         if (p.x > IChess.BOARD_WIDTH || p.y > IChess.BOARD_HEIGHT){
+        if (p.x > IChess.BOARD_WIDTH || p.y > IChess.BOARD_HEIGHT) {
             throw new OutOfBoardException();
-        }
-        else if (chessboard.getPiece(p) == null) {
+        } else if (chessboard.getPiece(p) == null) {
             throw new EmptyCellException();
-        }
-        else{
+        } else {
             return chessboard.getPiece(p).getColor();
-        } 
+        }
     }
 
     @Override
@@ -82,30 +74,29 @@ public class ChessModel implements IChess{
         List<ChessPosition> listPiece = new ArrayList<>();
         List<ChessPosition> listOut = new ArrayList<>();
         Piece piece = chessboard.getPiece(cp);
-        if (null != piece){
+        if (null != piece) {
             listPiece = piece.getMoves(cp, chessboard);
         }
         IChess.ChessColor selfColor = chessboard.getPiece(cp).getColor();
-        if(listPiece != null){
+        if (listPiece != null) {
             for (ChessPosition possiblePos : listPiece) {
                 ChessBoard cloB = chessboard.clone();
                 cloB.movePiece(cp, possiblePos);
-                if(cloB.getKingState(selfColor) != IChess.ChessKingState.KING_THREATEN){
+                if (cloB.getKingState(selfColor) != IChess.ChessKingState.KING_THREATEN) {
                     //listPiece.remove(possiblePos);
                     listOut.add(possiblePos);
                 }
 
             }
         }
-        return listOut;   
+        return listOut;
     }
 
     @Override
     public void movePiece(ChessPosition p0, ChessPosition p1) {
         chessboard.movePiece(p0, p1);
-        
-       
-   }
+
+    }
 
     @Override
     public ChessKingState getKingState(ChessColor color) {

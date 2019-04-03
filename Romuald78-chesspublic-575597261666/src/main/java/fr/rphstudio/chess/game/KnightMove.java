@@ -16,34 +16,31 @@ import java.util.List;
  *
  * @author guiockanthony
  */
-public class KnightMove implements IMove{
-    
-    
-    
+public class KnightMove implements IMove {
+
     @Override
     public List<IChess.ChessPosition> getPossibleMove(IChess.ChessPosition pos, ChessBoard board) {
-        
+
         IChess.ChessPosition possiblePos;
         List<IChess.ChessPosition> ListPossiblePos = new ArrayList<ChessPosition>();
-        
-        for(int i = 0; i < IChess.BOARD_HEIGHT; i++) {
-            for (int j = 0; j < IChess.BOARD_WIDTH; j++) {
-                if(Math.abs((i-pos.x))+Math.abs((j-pos.y)) ==3 ){
 
-                    if(i-pos.x != 0 && j - pos.y != 0){
+        for (int i = 0; i < IChess.BOARD_HEIGHT; i++) {
+            for (int j = 0; j < IChess.BOARD_WIDTH; j++) {
+                if (Math.abs((i - pos.x)) + Math.abs((j - pos.y)) == 3) {
+
+                    if (i - pos.x != 0 && j - pos.y != 0) {
                         possiblePos = new ChessPosition(i, j);
-                        if (null != board.getPiece(possiblePos)){
-                            if( board.getPiece(possiblePos).getColor() != board.getPiece(pos).getColor()){
+                        if (null != board.getPiece(possiblePos)) {
+                            if (board.getPiece(possiblePos).getColor() != board.getPiece(pos).getColor()) {
                                 ListPossiblePos.add(possiblePos);
                             }
-                        }
-                        else {
+                        } else {
                             ListPossiblePos.add(possiblePos);
                         }
                     }
-                    
+
                 }
-            } 
+            }
         }
         return ListPossiblePos;
     }

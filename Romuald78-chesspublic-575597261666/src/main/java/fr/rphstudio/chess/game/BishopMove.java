@@ -14,7 +14,8 @@ import java.util.List;
  *
  * @author azz-kevinf
  */
-public class BishopMove implements IMove{
+public class BishopMove implements IMove {
+
     @Override
     public List<IChess.ChessPosition> getPossibleMove(IChess.ChessPosition pos, ChessBoard board) {
         return UtilMove.DiagonalMove(pos, board);

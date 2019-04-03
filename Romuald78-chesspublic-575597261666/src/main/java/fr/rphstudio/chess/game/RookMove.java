@@ -15,11 +15,11 @@ import java.util.List;
  * @author azz-kevinf
  */
 public class RookMove implements IMove {
-    
+
     @Override
     public List<IChess.ChessPosition> getPossibleMove(IChess.ChessPosition pos, ChessBoard board) {
-        
+
         return UtilMove.OrthogonalMove(pos, board);
-        
+
     }
 }

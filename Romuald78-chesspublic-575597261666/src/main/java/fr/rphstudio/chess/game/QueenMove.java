@@ -15,11 +15,12 @@ import java.util.List;
  * @author azz-kevinf
  */
 public class QueenMove implements IMove {
+
     @Override
     public List<IChess.ChessPosition> getPossibleMove(IChess.ChessPosition pos, ChessBoard board) {
-        
+
         List<IChess.ChessPosition> listPossiblePos = new ArrayList<>();
-    
+
         listPossiblePos.addAll(UtilMove.DiagonalMove(pos, board));
         listPossiblePos.addAll(UtilMove.OrthogonalMove(pos, board));
         return listPossiblePos;
