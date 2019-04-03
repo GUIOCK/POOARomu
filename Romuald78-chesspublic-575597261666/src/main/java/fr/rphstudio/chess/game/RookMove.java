@@ -21,9 +21,11 @@ public class RookMove implements IMove {
         
         
         IChess.ChessPosition possiblePos;
+        IChess.ChessPosition nxtPos;
         List<IChess.ChessPosition> ListPossiblePos = new ArrayList<IChess.ChessPosition>();
         
-        outer : for(int i = pos.x +1; i < IChess.BOARD_WIDTH; i++) {
+        
+        /*outer : for(int i = pos.x +1; i < IChess.BOARD_WIDTH; i++) {
             
             if(Math.abs(pos.x - i) >=0 && pos.x < IChess.BOARD_WIDTH){
                 possiblePos = new IChess.ChessPosition(i, pos.y);
@@ -98,7 +100,40 @@ public class RookMove implements IMove {
         //Return placement
         return ListPossiblePos;
         
-        
+        */
+        for(int dir = 0; dir < 4; dir++){
+            int dx = 0;
+            int dy = 0;
+            switch(dir){
+                case 0:
+                    dy = 1;
+                    break;
+                case 1:
+                    dx = 1;
+                    break;
+                case 2:
+                    dy = -1;
+                    break;
+                case 3:
+                    dx = -1;
+                    break;
+            }
+            for (int dist = 1; dist < 8; dist++){
+                nxtPos = new IChess.ChessPosition(pos.x + (dx * dist), pos.y + (dy * dist));
+                if (nxtPos.x <=7 && nxtPos.x >=0 && nxtPos.y >=0 && nxtPos.y <=7){ 
+                    if (null != board.getPiece(nxtPos)){
+                        if(board.getPiece(nxtPos).getColor() != board.getPiece(pos).getColor()){
+                            ListPossiblePos.add(nxtPos);
+                        }
+                        break;
+                    } else {
+                                ListPossiblePos.add(nxtPos);
+                    }
+                }
+            }
+            
+        }
+        return ListPossiblePos;
     }
     
 }
