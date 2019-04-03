@@ -17,11 +17,10 @@ import java.util.List;
  * @author guiockanthony
  */
 public class ChessBoard{
-
-
-
     
     private Piece[][] board = new Piece[IChess.BOARD_HEIGHT][IChess.BOARD_WIDTH];
+    private List<IChess.ChessType> blackP = new ArrayList<>();
+    private List<IChess.ChessType> whiteP = new ArrayList<>();
     
     public ChessBoard(){
        
@@ -146,9 +145,27 @@ public class ChessBoard{
         return nbPiecesLeft;
     }
     
+    public List<IChess.ChessType> getRemovedPieces(ChessColor color) {
+        if (color == IChess.ChessColor.CLR_WHITE){
+            return whiteP;
+        }
+        else{
+            return blackP;
+        }
+    }
+    
     public void movePiece(ChessPosition pFirst, ChessPosition pFinal){
         this.getPiece(pFirst).incMoveCount();
+        if (null != board[pFinal.y][pFinal.x]){
+            if(board[pFinal.y][pFinal.x].getColor() == IChess.ChessColor.CLR_WHITE){
+                whiteP.add(board[pFinal.y][pFinal.x].getType());
+            }
+            else if (board[pFinal.y][pFinal.x].getColor() == IChess.ChessColor.CLR_BLACK){
+                blackP.add(board[pFinal.y][pFinal.x].getType());
+            }
+        }
         board[pFinal.y][pFinal.x] = board[pFirst.y][pFirst.x];
+        
         board[pFirst.y][pFirst.x] = null;
     }
    
