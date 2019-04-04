@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.rphstudio.chess.game;
 
 import fr.rphstudio.chess.interf.IChess;
@@ -13,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author guiockanthony
+ *A class that regroup all informations and method for the chessboard and pieces positions
+    * @author doomTeam
  */
 public class ChessBoard {
-
+    
     private Piece[][] board = new Piece[IChess.BOARD_HEIGHT][IChess.BOARD_WIDTH];
     private List<IChess.ChessType> blackP = new ArrayList<>();
     private List<IChess.ChessType> whiteP = new ArrayList<>();
@@ -28,8 +23,14 @@ public class ChessBoard {
     private long currentTime = 0;
     private long globalTime = 0;
 
+    /**
+     *
+     */
     public ChessBoard() {
 
+        /**
+         * 
+         */
         currentTime = System.currentTimeMillis();
         /* We set the starting placement of all pawns on the board */
         //White Pawns's placement.
@@ -117,6 +118,11 @@ public class ChessBoard {
                         new KnightMove());
     }
 
+    /**
+     *
+     * @param pos the position of the piece that will be returned
+     * @return the piece object that is located in the cell, or null if no piece was found
+     */
     public Piece getPiece(IChess.ChessPosition pos) {
         if (pos.x <= 7 && pos.x >= 0 && pos.y <= 7 && pos.y >= 0) {
             return this.board[pos.y][pos.x];
@@ -126,6 +132,11 @@ public class ChessBoard {
 
     }
 
+    /**
+     *
+     * @param color the color (Black or White) of the pieces we want to count
+     * @return the number of pieces left in the board of the specified color
+     */
     public int getNbRemainingPieces(ChessColor color) {
 
         //Initialize a counter for the Pieces left on the board.
@@ -148,6 +159,11 @@ public class ChessBoard {
         return nbPiecesLeft;
     }
 
+    /**
+     *
+     * @param color the color (Black or White) of the pieces we want to get
+     * @return a list which contain all removed pieces of the specified color
+     */
     public List<IChess.ChessType> getRemovedPieces(ChessColor color) {
         if (color == IChess.ChessColor.CLR_WHITE) {
             return whiteP;
@@ -156,6 +172,13 @@ public class ChessBoard {
         }
     }
 
+    /**
+     *This method take a piece on the board, and put it in another position, possibly erase
+     * an existing piece if one is already present in the pFinal position
+     * 
+     * @param pFirst the position of the piece we want to move
+     * @param pFinal the position were we want to move the piece located in the position pFirst
+     */
     public void movePiece(ChessPosition pFirst, ChessPosition pFinal) {
         this.getPiece(pFirst).incMoveCount();
         BackToTheFuture getBack = new BackToTheFuture(pFirst,
@@ -184,6 +207,11 @@ public class ChessBoard {
 
     }
 
+    /**
+     *
+     * @param color
+     * @return
+     */
     public ChessKingState getKingState(ChessColor color) {
 
         ChessPosition kingPos = null;
@@ -247,6 +275,10 @@ public class ChessBoard {
         return cloB;
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean undoLastMove() {
         if (!isUndoDone && listBack.size() > 0) {
             BackToTheFuture getBack = listBack.get(listBack.size() - 1);
@@ -275,6 +307,12 @@ public class ChessBoard {
         return isUndoDone;
     }
     
+    /**
+     *
+     * @param color
+     * @param isPlaying
+     * @return
+     */
     public long getPlayerDuration(ChessColor color, boolean isPlaying) {
         globalTime = System.currentTimeMillis() - currentTime;
         if (color == ChessColor.CLR_BLACK) {
@@ -298,6 +336,11 @@ public class ChessBoard {
 
     }
 
+    /**
+     *
+     * @param p
+     * @param cp
+     */
     public void setPiece(Piece p, ChessPosition cp) {
         this.board[cp.y][cp.x] = p;
     }
