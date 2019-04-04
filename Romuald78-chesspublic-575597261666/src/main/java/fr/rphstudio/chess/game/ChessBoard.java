@@ -23,9 +23,13 @@ public class ChessBoard {
     private List<IChess.ChessType> whiteP = new ArrayList<>();
     private List<BackToTheFuture> listBack = new ArrayList<>();
     private boolean isUndoDone = true;
+    private long timerBlack = 0;
+    private long timerWhite = 0;
+    private long currentTime = 0;
 
     public ChessBoard() {
 
+        currentTime = System.currentTimeMillis();
         /* We set the starting placement of all pawns on the board */
         //White Pawns's placement.
         for (int i = 0; i < IChess.BOARD_WIDTH; i++) {
@@ -154,9 +158,9 @@ public class ChessBoard {
     public void movePiece(ChessPosition pFirst, ChessPosition pFinal) {
         isUndoDone = false;
         this.getPiece(pFirst).incMoveCount();
-        BackToTheFuture getBack = new BackToTheFuture(pFirst, 
-                this.getPiece(pFirst), 
-                pFinal, 
+        BackToTheFuture getBack = new BackToTheFuture(pFirst,
+                this.getPiece(pFirst),
+                pFinal,
                 this.getPiece(pFinal) != null ? this.getPiece(pFinal) : null);
         listBack.add(getBack);
         if (null != board[pFinal.y][pFinal.x]) {
@@ -241,30 +245,53 @@ public class ChessBoard {
         }
         return cloB;
     }
-    
-    public boolean undoLastMove(){
-        if (!isUndoDone && listBack.size() > 0){
-           BackToTheFuture getBack = listBack.get(listBack.size()-1); 
-           this.setPiece(getBack.getP0(), getBack.getCp0());
-           this.setPiece(getBack.getP1(), getBack.getCp1());
-           getBack.getP0().decMoveCount();
-           listBack.remove(getBack);
-           if (null != getBack.getP1()) {
-            if (getBack.getP1().getColor() == IChess.ChessColor.CLR_WHITE) {
-                whiteP.remove(getBack.getP1().getType());
-            } else if (getBack.getP1().getColor() == IChess.ChessColor.CLR_BLACK) {
-                blackP.remove(getBack.getP1().getType());
+
+    public boolean undoLastMove() {
+        if (!isUndoDone && listBack.size() > 0) {
+            BackToTheFuture getBack = listBack.get(listBack.size() - 1);
+            this.setPiece(getBack.getP0(), getBack.getCp0());
+            this.setPiece(getBack.getP1(), getBack.getCp1());
+            getBack.getP0().decMoveCount();
+            listBack.remove(getBack);
+            if (null != getBack.getP1()) {
+                if (getBack.getP1().getColor() == IChess.ChessColor.CLR_WHITE) {
+                    whiteP.remove(getBack.getP1().getType());
+                } else if (getBack.getP1().getColor() == IChess.ChessColor.CLR_BLACK) {
+                    blackP.remove(getBack.getP1().getType());
+                }
             }
-        }
-           isUndoDone = true;
-        }else {
+            isUndoDone = true;
+        } else {
             isUndoDone = false;
         }
-        
+
         return isUndoDone;
     }
-    
-    public void setPiece(Piece p, ChessPosition cp){
+
+    public long getPlayerDuration(ChessColor color, boolean isPlaying) {
+        long globalTime = System.currentTimeMillis() - currentTime;
+        if (color == ChessColor.CLR_BLACK) {
+            if (isPlaying) {
+                timerBlack = globalTime - timerWhite;
+                return timerBlack;
+            }
+            else {
+                return timerBlack;
+            }
+
+        } else {
+            if (isPlaying) {
+                timerWhite = globalTime - timerBlack;
+                return timerWhite;
+            }
+            else {
+                return timerWhite;
+            }
+        }
+
+    }
+
+    public void setPiece(Piece p, ChessPosition cp) {
         this.board[cp.y][cp.x] = p;
     }
 }
