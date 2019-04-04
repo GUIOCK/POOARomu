@@ -21,6 +21,8 @@ public class ChessBoard {
     private Piece[][] board = new Piece[IChess.BOARD_HEIGHT][IChess.BOARD_WIDTH];
     private List<IChess.ChessType> blackP = new ArrayList<>();
     private List<IChess.ChessType> whiteP = new ArrayList<>();
+    private List<BackToTheFuture> listBack = new ArrayList<>();
+    private boolean isUndoDone = true;
 
     public ChessBoard() {
 
@@ -150,7 +152,13 @@ public class ChessBoard {
     }
 
     public void movePiece(ChessPosition pFirst, ChessPosition pFinal) {
+        isUndoDone = false;
         this.getPiece(pFirst).incMoveCount();
+        BackToTheFuture getBack = new BackToTheFuture(pFirst, 
+                this.getPiece(pFirst), 
+                pFinal, 
+                this.getPiece(pFinal) != null ? this.getPiece(pFinal) : null);
+        listBack.add(getBack);
         if (null != board[pFinal.y][pFinal.x]) {
             if (board[pFinal.y][pFinal.x].getColor() == IChess.ChessColor.CLR_WHITE) {
                 whiteP.add(board[pFinal.y][pFinal.x].getType());
@@ -232,5 +240,24 @@ public class ChessBoard {
             }
         }
         return cloB;
+    }
+    
+    public boolean undoLastMove(){
+        if (!isUndoDone){
+           BackToTheFuture getBack = listBack.get(listBack.size()-1); 
+           this.setPiece(getBack.getP0(), getBack.getCp0());
+           this.setPiece(getBack.getP1(), getBack.getCp1());
+           getBack.getP0().decMoveCount();
+           listBack.remove(getBack);
+           isUndoDone = true;
+        }else{
+            return false;
+        }
+        
+        return isUndoDone;
+    }
+    
+    public void setPiece(Piece p, ChessPosition cp){
+        this.board[cp.y][cp.x] = p;
     }
 }

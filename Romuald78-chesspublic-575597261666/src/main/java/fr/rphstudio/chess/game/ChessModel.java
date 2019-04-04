@@ -110,7 +110,7 @@ public class ChessModel implements IChess {
 
     @Override
     public boolean undoLastMove() {
-        return true;
+        return chessboard.undoLastMove();
     }
 
     @Override
