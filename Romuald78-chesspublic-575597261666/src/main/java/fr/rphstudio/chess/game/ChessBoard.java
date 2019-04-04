@@ -243,15 +243,22 @@ public class ChessBoard {
     }
     
     public boolean undoLastMove(){
-        if (!isUndoDone){
+        if (!isUndoDone && listBack.size() > 0){
            BackToTheFuture getBack = listBack.get(listBack.size()-1); 
            this.setPiece(getBack.getP0(), getBack.getCp0());
            this.setPiece(getBack.getP1(), getBack.getCp1());
            getBack.getP0().decMoveCount();
            listBack.remove(getBack);
+           if (null != getBack.getP1()) {
+            if (getBack.getP1().getColor() == IChess.ChessColor.CLR_WHITE) {
+                whiteP.remove(getBack.getP1().getType());
+            } else if (getBack.getP1().getColor() == IChess.ChessColor.CLR_BLACK) {
+                blackP.remove(getBack.getP1().getType());
+            }
+        }
            isUndoDone = true;
-        }else{
-            return false;
+        }else {
+            isUndoDone = false;
         }
         
         return isUndoDone;
