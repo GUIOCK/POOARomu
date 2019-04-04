@@ -25,12 +25,11 @@ public class ChessBoard {
     private boolean isUndoDone = false;
     private long timerBlack = 0;
     private long timerWhite = 0;
-    private long currentTime = 0;
-    private long globalTime = 0;
+    private long startTime = 0;
 
     public ChessBoard() {
 
-        currentTime = System.currentTimeMillis();
+        startTime = System.currentTimeMillis();
         /* We set the starting placement of all pawns on the board */
         //White Pawns's placement.
         for (int i = 0; i < IChess.BOARD_WIDTH; i++) {
@@ -157,12 +156,21 @@ public class ChessBoard {
     }
 
     public void movePiece(ChessPosition pFirst, ChessPosition pFinal) {
+        isUndoDone = false;
+        long currentTime = System.currentTimeMillis() - startTime;
+        startTime = System.currentTimeMillis();
         this.getPiece(pFirst).incMoveCount();
         BackToTheFuture getBack = new BackToTheFuture(pFirst,
                 this.getPiece(pFirst),
                 pFinal,
                 this.getPiece(pFinal) != null ? this.getPiece(pFinal) : null,
-                this.getPiece(pFirst).getColor() == IChess.ChessColor.CLR_BLACK ? timerWhite : timerBlack);
+                //this.getPiece(pFirst).getColor() == IChess.ChessColor.CLR_BLACK ? timerWhite : timerBlack
+                currentTime);
+        if (this.getPiece(pFirst).getColor() == IChess.ChessColor.CLR_BLACK) {
+            timerBlack += currentTime;
+        } else {
+            timerWhite += currentTime;
+        }
         listBack.add(getBack);
         if (null != board[pFinal.y][pFinal.x]) {
             if (board[pFinal.y][pFinal.x].getColor() == IChess.ChessColor.CLR_WHITE) {
@@ -248,16 +256,15 @@ public class ChessBoard {
     }
 
     public boolean undoLastMove() {
-        if (!isUndoDone && listBack.size() > 0) {
+        if (listBack.size() > 0) {
             BackToTheFuture getBack = listBack.get(listBack.size() - 1);
             this.setPiece(getBack.getP0(), getBack.getCp0());
             this.setPiece(getBack.getP1(), getBack.getCp1());
             getBack.getP0().decMoveCount();
-            if(getBack.getP0().getColor() == IChess.ChessColor.CLR_BLACK){
-                timerWhite -= getBack.getTimer();
-            }
-            else if(getBack.getP0().getColor() == IChess.ChessColor.CLR_WHITE){
+            if (getBack.getP0().getColor() == IChess.ChessColor.CLR_BLACK) {
                 timerBlack -= getBack.getTimer();
+            } else if (getBack.getP0().getColor() == IChess.ChessColor.CLR_WHITE) {
+                timerWhite -= getBack.getTimer();
             }
             listBack.remove(getBack);
             if (null != getBack.getP1()) {
@@ -269,33 +276,30 @@ public class ChessBoard {
             }
             isUndoDone = true;
         } else {
+            timerWhite = 0;
+            timerBlack = 0;
             isUndoDone = false;
         }
-
         return isUndoDone;
     }
-    
+
     public long getPlayerDuration(ChessColor color, boolean isPlaying) {
-        globalTime = System.currentTimeMillis() - currentTime;
+        long currentTime = System.currentTimeMillis() - startTime;
         if (color == ChessColor.CLR_BLACK) {
             if (isPlaying) {
-                timerBlack = globalTime - timerWhite;
-                return timerBlack;
-            }
-            else {
+                return timerBlack + currentTime;
+            } else {
                 return timerBlack;
             }
 
         } else {
             if (isPlaying) {
-                timerWhite = globalTime - timerBlack;
-                return timerWhite;
-            }
-            else {
+
+                return timerWhite + currentTime;
+            } else {
                 return timerWhite;
             }
         }
-
     }
 
     public void setPiece(Piece p, ChessPosition cp) {
