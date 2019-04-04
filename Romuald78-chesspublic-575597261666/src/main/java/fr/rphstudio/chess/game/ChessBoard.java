@@ -30,7 +30,7 @@ public class ChessBoard {
         /**
          * 
          */
-        startTime = System.currentTimeMillis();
+        currentTime = System.currentTimeMillis();
         /* We set the starting placement of all pawns on the board */
         //White Pawns's placement.
         for (int i = 0; i < IChess.BOARD_WIDTH; i++) {
