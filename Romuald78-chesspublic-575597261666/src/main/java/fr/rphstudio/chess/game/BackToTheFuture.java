@@ -27,11 +27,12 @@ public class BackToTheFuture {
      * @param cp1 is the position of the piece after that moves
      * @param p1 is the piece that is potentially eaten
      */
-    public BackToTheFuture(ChessPosition cp0, Piece p0, ChessPosition cp1, Piece p1){
+    public BackToTheFuture(ChessPosition cp0, Piece p0, ChessPosition cp1, Piece p1, long timer){
         this.cp0 = cp0;
         this.p0 = p0;
         this.cp1 = cp1;
         this.p1 = p1;
+        this.timer = timer;
     }
     
     public ChessPosition getCp0(){

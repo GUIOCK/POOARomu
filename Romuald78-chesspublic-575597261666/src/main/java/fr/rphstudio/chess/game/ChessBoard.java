@@ -22,10 +22,11 @@ public class ChessBoard {
     private List<IChess.ChessType> blackP = new ArrayList<>();
     private List<IChess.ChessType> whiteP = new ArrayList<>();
     private List<BackToTheFuture> listBack = new ArrayList<>();
-    private boolean isUndoDone = true;
+    private boolean isUndoDone = false;
     private long timerBlack = 0;
     private long timerWhite = 0;
     private long currentTime = 0;
+    private long globalTime = 0;
 
     public ChessBoard() {
 
@@ -156,12 +157,12 @@ public class ChessBoard {
     }
 
     public void movePiece(ChessPosition pFirst, ChessPosition pFinal) {
-        isUndoDone = false;
         this.getPiece(pFirst).incMoveCount();
         BackToTheFuture getBack = new BackToTheFuture(pFirst,
                 this.getPiece(pFirst),
                 pFinal,
-                this.getPiece(pFinal) != null ? this.getPiece(pFinal) : null);
+                this.getPiece(pFinal) != null ? this.getPiece(pFinal) : null,
+                this.getPiece(pFirst).getColor() == IChess.ChessColor.CLR_BLACK ? timerWhite : timerBlack);
         listBack.add(getBack);
         if (null != board[pFinal.y][pFinal.x]) {
             if (board[pFinal.y][pFinal.x].getColor() == IChess.ChessColor.CLR_WHITE) {
@@ -252,6 +253,12 @@ public class ChessBoard {
             this.setPiece(getBack.getP0(), getBack.getCp0());
             this.setPiece(getBack.getP1(), getBack.getCp1());
             getBack.getP0().decMoveCount();
+            if(getBack.getP0().getColor() == IChess.ChessColor.CLR_BLACK){
+                timerWhite -= getBack.getTimer();
+            }
+            else if(getBack.getP0().getColor() == IChess.ChessColor.CLR_WHITE){
+                timerBlack -= getBack.getTimer();
+            }
             listBack.remove(getBack);
             if (null != getBack.getP1()) {
                 if (getBack.getP1().getColor() == IChess.ChessColor.CLR_WHITE) {
@@ -267,9 +274,9 @@ public class ChessBoard {
 
         return isUndoDone;
     }
-
+    
     public long getPlayerDuration(ChessColor color, boolean isPlaying) {
-        long globalTime = System.currentTimeMillis() - currentTime;
+        globalTime = System.currentTimeMillis() - currentTime;
         if (color == ChessColor.CLR_BLACK) {
             if (isPlaying) {
                 timerBlack = globalTime - timerWhite;
