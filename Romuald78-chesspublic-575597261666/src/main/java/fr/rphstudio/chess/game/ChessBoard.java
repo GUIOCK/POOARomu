@@ -314,7 +314,13 @@ public class ChessBoard {
         }
         return isUndoDone;
     }
-
+    
+    /**
+     *
+     * @param color
+     * @param isPlaying
+     * @return
+     */
     public long getPlayerDuration(ChessColor color, boolean isPlaying) {
         long currentTime = System.currentTimeMillis() - startTime;
         if (color == ChessColor.CLR_BLACK) {
