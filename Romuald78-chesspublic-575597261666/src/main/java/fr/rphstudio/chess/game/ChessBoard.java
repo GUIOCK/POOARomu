@@ -30,7 +30,7 @@ public class ChessBoard {
         /**
          * 
          */
-        currentTime = System.currentTimeMillis();
+        startTime = System.currentTimeMillis();
         /* We set the starting placement of all pawns on the board */
         //White Pawns's placement.
         for (int i = 0; i < IChess.BOARD_WIDTH; i++) {
@@ -179,21 +179,20 @@ public class ChessBoard {
      * @param pFinal the position were we want to move the piece located in the position pFirst
      */
     public void movePiece(ChessPosition pFirst, ChessPosition pFinal) {
-        isUndoDone = false;
         long currentTime = System.currentTimeMillis() - startTime;
-        startTime = System.currentTimeMillis();
+        
         this.getPiece(pFirst).incMoveCount();
         BackToTheFuture getBack = new BackToTheFuture(pFirst,
                 this.getPiece(pFirst),
                 pFinal,
-                this.getPiece(pFinal) != null ? this.getPiece(pFinal) : null,
-                //this.getPiece(pFirst).getColor() == IChess.ChessColor.CLR_BLACK ? timerWhite : timerBlack
+                this.getPiece(pFinal),
                 currentTime);
         if (this.getPiece(pFirst).getColor() == IChess.ChessColor.CLR_BLACK) {
             timerBlack += currentTime;
-        } else {
+        } else if (this.getPiece(pFirst).getColor() == IChess.ChessColor.CLR_WHITE){
             timerWhite += currentTime;
         }
+        startTime = System.currentTimeMillis();
         listBack.add(getBack);
         if (null != board[pFinal.y][pFinal.x]) {
             if (board[pFinal.y][pFinal.x].getColor() == IChess.ChessColor.CLR_WHITE) {
@@ -212,6 +211,7 @@ public class ChessBoard {
             }
         }
         board[pFirst.y][pFirst.x] = null;
+        
 
     }
 
@@ -298,6 +298,7 @@ public class ChessBoard {
             } else if (getBack.getP0().getColor() == IChess.ChessColor.CLR_WHITE) {
                 timerWhite -= getBack.getTimer();
             }
+            startTime = System.currentTimeMillis();
             listBack.remove(getBack);
             if (null != getBack.getP1()) {
                 if (getBack.getP1().getColor() == IChess.ChessColor.CLR_WHITE) {
@@ -308,8 +309,6 @@ public class ChessBoard {
             }
             isUndoDone = true;
         } else {
-            timerWhite = 0;
-            timerBlack = 0;
             isUndoDone = false;
         }
         return isUndoDone;
