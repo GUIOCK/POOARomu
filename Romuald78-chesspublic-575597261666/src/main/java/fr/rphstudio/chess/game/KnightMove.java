@@ -22,7 +22,7 @@ public class KnightMove implements IMove {
      * The base for our movement, the Knight can jump pieces, and moves in a maximum of 8 directions.
      * @param pos the position of the Knight chosen by the player.
      * @param board the position of each pieces left on the board.
-     * @return 
+     * @return the possible Position for the Knight
      */
     
     @Override
