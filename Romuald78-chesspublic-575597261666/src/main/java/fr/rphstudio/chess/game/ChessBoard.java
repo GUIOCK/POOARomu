@@ -324,6 +324,26 @@ public class ChessBoard {
     public boolean undoLastMove() {
         if (listBack.size() > 0) {
             BackToTheFuture getBack = listBack.get(listBack.size() - 1);
+            ChessPosition pFirst = getBack.getCp0();
+            ChessPosition pFinal = getBack.getCp1();
+            if (null != getBack.getP1() && getBack.getP0().getColor() == getBack.getP1().getColor()){
+                if(pFinal.x > pFirst.x){
+                    board[pFinal.y][pFinal.x - 2] = board[pFinal.y][pFinal.x];
+                    board[pFinal.y][pFinal.x - 1] = board[pFirst.y][pFirst.x];
+                
+                    board[pFirst.y][pFirst.x] = null;
+                    board[pFinal.y][pFinal.x] = null;
+                
+                }
+                else if(pFinal.x < pFirst.x){
+                
+                    board[pFinal.y][pFinal.x + 3] = board[pFinal.y][pFinal.x];
+                    board[pFinal.y][pFinal.x + 2] = board[pFirst.y][pFirst.x];
+                
+                    board[pFirst.y][pFirst.x] = null;
+                    board[pFinal.y][pFinal.x] = null;
+                }
+            }
             this.setPiece(getBack.getP0(), getBack.getCp0());
             this.setPiece(getBack.getP1(), getBack.getCp1());
             getBack.getP0().decMoveCount();
