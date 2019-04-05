@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *A class that regroup all informations and method for the chessboard and pieces positions
-    * @author doomTeam
+ * @author doomTeam
  */
 public class ChessBoard {
     
@@ -21,14 +21,14 @@ public class ChessBoard {
     private long timerBlack = 0;
     private long timerWhite = 0;
     private long startTime = 0;
-
+    
     /**
      *
      */
     public ChessBoard() {
-
+        
         /**
-         * 
+         *
          */
         startTime = System.currentTimeMillis();
         /* We set the starting placement of all pawns on the board */
@@ -39,7 +39,7 @@ public class ChessBoard {
                             IChess.ChessType.TYP_PAWN,
                             new PawnMove());
         }
-
+        
         // White figure placement.
         board[IChess.BOARD_POS_Y_WHITE_PIECES][IChess.BOARD_POS_X_KING]
                 = new Piece(IChess.ChessColor.CLR_WHITE,
@@ -73,7 +73,7 @@ public class ChessBoard {
                 = new Piece(IChess.ChessColor.CLR_WHITE,
                         IChess.ChessType.TYP_KNIGHT,
                         new KnightMove());
-
+        
         // Black Pawns's placement.
         for (int i = 0; i < IChess.BOARD_WIDTH; i++) {
             board[IChess.BOARD_POS_Y_BLACK_PAWNS][i]
@@ -81,7 +81,7 @@ public class ChessBoard {
                             IChess.ChessType.TYP_PAWN,
                             new PawnMove());
         }
-
+        
         // Black Figures placement.
         board[IChess.BOARD_POS_Y_BLACK_PIECES][IChess.BOARD_POS_X_KING]
                 = new Piece(IChess.ChessColor.CLR_BLACK,
@@ -116,7 +116,7 @@ public class ChessBoard {
                         IChess.ChessType.TYP_KNIGHT,
                         new KnightMove());
     }
-
+    
     /**
      *
      * @param pos the position of the piece that will be returned
@@ -128,36 +128,36 @@ public class ChessBoard {
         } else {
             return null;
         }
-
+        
     }
-
+    
     /**
      *
      * @param color the color (Black or White) of the pieces we want to count
      * @return the number of pieces left in the board of the specified color
      */
     public int getNbRemainingPieces(ChessColor color) {
-
+        
         //Initialize a counter for the Pieces left on the board.
         int nbPiecesLeft = 0;
-
+        
         // We parcour the board and check if there's colors.
         for (int i = 0; i < IChess.BOARD_HEIGHT; i++) {
             for (int j = 0; j < IChess.BOARD_WIDTH; j++) {
-
+                
                 if (board[i][j] != null) {
-
+                    
                     if (board[i][j].getColor() == color) {
                         nbPiecesLeft++;
                     }
-
+                    
                 }
             }
         }
-
+        
         return nbPiecesLeft;
     }
-
+    
     /**
      *
      * @param color the color (Black or White) of the pieces we want to get
@@ -170,11 +170,11 @@ public class ChessBoard {
             return blackP;
         }
     }
-
+    
     /**
      *This method take a piece on the board, and put it in another position, possibly erase
      * an existing piece if one is already present in the pFinal position
-     * 
+     *
      * @param pFirst the position of the piece we want to move
      * @param pFinal the position were we want to move the piece located in the position pFirst
      */
@@ -201,33 +201,66 @@ public class ChessBoard {
                 blackP.add(board[pFinal.y][pFinal.x].getType());
             }
         }
-
-        board[pFinal.y][pFinal.x] = board[pFirst.y][pFirst.x];
-        if (board[pFirst.y][pFirst.x].getType() == IChess.ChessType.TYP_PAWN) {
-            if (pFinal.y == 7 || pFinal.y == 0) {
-                board[pFinal.y][pFinal.x] = new Piece(board[pFirst.y][pFirst.x].getColor(),
-                        IChess.ChessType.TYP_QUEEN,
-                        new QueenMove());
-            }
-        }
-        board[pFirst.y][pFirst.x] = null;
         
-
+        
+        if(board[pFirst.y][pFirst.x] != null
+                && board[pFinal.y][pFinal.x] != null
+                && board[pFirst.y][pFirst.x].getColor() == board[pFinal.y][pFinal.x].getColor()
+                && board[pFirst.y][pFirst.x].getType() == IChess.ChessType.TYP_KING
+                && board[pFinal.y][pFinal.x].getType() == IChess.ChessType.TYP_ROOK) {
+            
+            
+            
+            
+            
+            
+            if(pFinal.x > pFirst.x){
+                board[pFinal.y][pFinal.x - 2] = board[pFinal.y][pFinal.x];
+                board[pFinal.y][pFinal.x - 1] = board[pFirst.y][pFirst.x];
+                
+                board[pFirst.y][pFirst.x] = null;
+                board[pFinal.y][pFinal.x] = null;
+                
+            }
+            else if(pFinal.x < pFirst.x){
+                
+                board[pFinal.y][pFinal.x + 3] = board[pFinal.y][pFinal.x];
+                board[pFinal.y][pFinal.x + 2] = board[pFirst.y][pFirst.x];
+                
+                board[pFirst.y][pFirst.x] = null;
+                board[pFinal.y][pFinal.x] = null;
+            }
+            
+        }
+        
+        else {
+            
+            board[pFinal.y][pFinal.x] = board[pFirst.y][pFirst.x];
+            if (board[pFirst.y][pFirst.x].getType() == IChess.ChessType.TYP_PAWN) {
+                if (pFinal.y == 7 || pFinal.y == 0) {
+                    board[pFinal.y][pFinal.x] = new Piece(board[pFirst.y][pFirst.x].getColor(),
+                            IChess.ChessType.TYP_QUEEN,
+                            new QueenMove());
+                }
+            }
+            board[pFirst.y][pFirst.x] = null;
+        }
+        
     }
-
+    
     /**
      *
      * @param color
      * @return
      */
     public ChessKingState getKingState(ChessColor color) {
-
+        
         ChessPosition kingPos = null;
         ChessPosition pos;
-
+        
         for (int i = 0; i < IChess.BOARD_HEIGHT; i++) {
             for (int j = 0; j < IChess.BOARD_WIDTH; j++) {
-
+                
                 pos = new ChessPosition(j, i);
                 if (getPiece(pos) != null) {
                     if (getPiece(pos).getColor() == color && getPiece(pos).getType() == IChess.ChessType.TYP_KING) {
@@ -235,41 +268,41 @@ public class ChessBoard {
                         break;
                     }
                 }
-
+                
             }
             if (kingPos != null) {
                 break;
             }
         }
-
+        
         List<ChessPosition> listPos = new ArrayList<>();
-
+        
         for (int i = 0; i < IChess.BOARD_HEIGHT; i++) {
             for (int j = 0; j < IChess.BOARD_WIDTH; j++) {
                 pos = new ChessPosition(j, i);
-
+                
                 if (getPiece(pos) != null) {
-
+                    
                     listPos = getPiece(pos).getMoves(pos, this);
-
+                    
                     for (ChessPosition possiblePos : listPos) {
                         if (possiblePos.equals(kingPos)) {
                             return ChessKingState.KING_THREATEN;
                         }
                     }
-
+                    
                 }
-
+                
                 //End 2nd for
             }
-
+            
             // End first for
         }
-
+        
         return ChessKingState.KING_SAFE;
         //Here return
     }
-
+    
     public ChessBoard clone() {
         ChessBoard cloB = new ChessBoard();
         for (int i = 0; i < IChess.BOARD_HEIGHT; i++) {
@@ -282,7 +315,7 @@ public class ChessBoard {
         }
         return cloB;
     }
-
+    
     /**
      *
      * @return
@@ -328,17 +361,17 @@ public class ChessBoard {
             } else {
                 return timerBlack;
             }
-
+            
         } else {
             if (isPlaying) {
-
+                
                 return timerWhite + currentTime;
             } else {
                 return timerWhite;
             }
         }
     }
-
+    
     /**
      *
      * @param p
