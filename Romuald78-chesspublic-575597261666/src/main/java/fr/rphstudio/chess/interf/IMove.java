@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author guiockanthony
+ * @author @author DOOM GUYS.
  */
 public interface IMove {
 

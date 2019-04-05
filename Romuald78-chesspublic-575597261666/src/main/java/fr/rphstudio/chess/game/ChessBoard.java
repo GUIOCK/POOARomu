@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *A class that regroup all informations and method for the chessboard and pieces positions
- * @author doomTeam
+ * @author DOOM GUYS.
  */
 public class ChessBoard {
     

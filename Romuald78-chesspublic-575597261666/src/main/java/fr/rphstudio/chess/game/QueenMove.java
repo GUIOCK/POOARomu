@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  *
- * @author azz-kevinf
+ * @author DOOM GUYS.
  */
 public class QueenMove implements IMove {
 

@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  *
- * @author azz-kevinf
+ * @author DOOM GUYS.
  */
 public class KingMove implements IMove {
     
@@ -41,12 +41,12 @@ public class KingMove implements IMove {
                 }
             }
         }
-        
+             
         if(UtilMove.LilRoque(board, pos)){
             lilRoque = new IChess.ChessPosition(pos.x + 3,pos.y);
             ListPossiblePos.add(lilRoque);
         }
-        
+       
         if (UtilMove.BigRoque(board, pos)){
             bigRoque = new IChess.ChessPosition(pos.x - 4,pos.y);
             ListPossiblePos.add(bigRoque);

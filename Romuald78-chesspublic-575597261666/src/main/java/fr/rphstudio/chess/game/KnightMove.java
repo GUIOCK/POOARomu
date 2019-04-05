@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  *
- * @author guiockanthony
+ * @author DOOM GUYS.
  */
 public class KnightMove implements IMove {
 

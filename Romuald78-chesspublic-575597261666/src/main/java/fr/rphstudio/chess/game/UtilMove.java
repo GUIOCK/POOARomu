@@ -12,9 +12,17 @@ import java.util.List;
 
 /**
  *
- * @author guiockanthony
+ * @author DOOM GUYS.
  */
 public class UtilMove {
+    
+    
+    /**
+     * 
+     * @param pos
+     * @param board
+     * @return 
+     */
     
     public static List<ChessPosition> OrthogonalMove(IChess.ChessPosition pos, ChessBoard board){
         
