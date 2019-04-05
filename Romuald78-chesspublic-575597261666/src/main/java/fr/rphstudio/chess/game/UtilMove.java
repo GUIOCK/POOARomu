@@ -17,13 +17,13 @@ import java.util.List;
 public class UtilMove {
     
     
-    /**
-     * 
-     * @param pos
-     * @param board
-     * @return 
-     */
     
+    /**
+     * Set up the Diagonal move possible for Rook and the Queen
+     * @param pos the position of the piece that we are interested in (either a Queen or Rook) 
+     * @param board the position of all the other pieces.
+     * @return A list of position possible for the piece.
+     */
     public static List<ChessPosition> OrthogonalMove(IChess.ChessPosition pos, ChessBoard board){
         
         IChess.ChessPosition nxtPos;
@@ -63,7 +63,12 @@ public class UtilMove {
         }
         return listPossiblePos;
     }
-    
+    /**
+     * Set up the Diagonal move possible for Bishop and the Queen
+     * @param pos the position of the piece that we are interested in (either a Queen or Bishop) 
+     * @param board the position of all the other pieces.
+     * @return A list of position possible for the piece.
+     */
     public static List<IChess.ChessPosition> DiagonalMove (IChess.ChessPosition pos, ChessBoard board) {
         
         IChess.ChessPosition nxtPos;
@@ -95,7 +100,12 @@ public class UtilMove {
         }
         return listPossiblePos;
     }
-    
+    /**
+     * We set up the possibility to do a little Roque on both side.
+     * @param board get all pieces and the board
+     * @param pos get the position of the King
+     * @return a boolean true/false if it's possible or no to do the little Roque.
+     */
     public static boolean LilRoque(ChessBoard board, IChess.ChessPosition pos){
         IChess.ChessPosition rookPos = null;
         
@@ -135,7 +145,12 @@ public class UtilMove {
         
         return false;
     }
-    
+    /**
+     * We set up the possibility to do a big Roque on both side.
+     * @param board get all pieces and the board
+     * @param pos get the position of the King
+     * @return a boolean true/false if it's possible or no to do the Big Roque.
+     */
     public static boolean BigRoque(ChessBoard board, IChess.ChessPosition pos){
         IChess.ChessPosition rookPos = null;
         
