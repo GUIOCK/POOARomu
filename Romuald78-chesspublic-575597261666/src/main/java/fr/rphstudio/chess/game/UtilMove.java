@@ -159,12 +159,12 @@ public class UtilMove {
         if(board.getPiece(pos).getType() == IChess.ChessType.TYP_KING
            && board.getPiece(pos).getMoveCount() == 0){
             
-            IChess.ChessPosition lilRoquePossible = new ChessPosition(7, pos.y);
+            IChess.ChessPosition bigRoquePossible = new ChessPosition(0, pos.y);
         
-            if(board.getPiece(lilRoquePossible) != null 
-               && board.getPiece(lilRoquePossible).getType() == IChess.ChessType.TYP_ROOK
-               && board.getPiece(lilRoquePossible).getColor() == board.getPiece(pos).getColor()
-               && board.getPiece(lilRoquePossible).getMoveCount() == 0){
+            if(board.getPiece(bigRoquePossible) != null 
+               && board.getPiece(bigRoquePossible).getType() == IChess.ChessType.TYP_ROOK
+               && board.getPiece(bigRoquePossible).getColor() == board.getPiece(pos).getColor()
+               && board.getPiece(bigRoquePossible).getMoveCount() == 0){
                 
                for (i = pos.x - 1; i > 0; i--){
                    rookPos = new ChessPosition(i, pos.y);
@@ -186,8 +186,7 @@ public class UtilMove {
                 
         
         }
-        
-        
+
         return false;
     }
     
