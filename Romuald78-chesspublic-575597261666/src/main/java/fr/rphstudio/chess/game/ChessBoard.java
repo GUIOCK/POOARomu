@@ -23,13 +23,10 @@ public class ChessBoard {
     private long startTime = 0;
     
     /**
-     *
+     * The constructor of the ChessBoard class, to be able to create objets of type ChessBoard
      */
     public ChessBoard() {
         
-        /**
-         *
-         */
         startTime = System.currentTimeMillis();
         /* We set the starting placement of all pawns on the board */
         //White Pawns's placement.
@@ -118,7 +115,7 @@ public class ChessBoard {
     }
     
     /**
-     *
+     * This method is to get the reference to a piece on the board
      * @param pos the position of the piece that will be returned
      * @return the piece object that is located in the cell, or null if no piece was found
      */
@@ -132,7 +129,7 @@ public class ChessBoard {
     }
     
     /**
-     *
+     * This method is to count all the remaining pieces in each team
      * @param color the color (Black or White) of the pieces we want to count
      * @return the number of pieces left in the board of the specified color
      */
@@ -159,7 +156,7 @@ public class ChessBoard {
     }
     
     /**
-     *
+     * This method is to put on the screen all the removed pieces 
      * @param color the color (Black or White) of the pieces we want to get
      * @return a list which contain all removed pieces of the specified color
      */
@@ -173,7 +170,8 @@ public class ChessBoard {
     
     /**
      *This method take a piece on the board, and put it in another position, possibly erase
-     * an existing piece if one is already present in the pFinal position
+     * an existing piece if one is already present in the pFinal position, and handle special
+     * movements (roque and pawn turning into a queen)
      *
      * @param pFirst the position of the piece we want to move
      * @param pFinal the position were we want to move the piece located in the position pFirst
@@ -210,11 +208,6 @@ public class ChessBoard {
                 && board[pFirst.y][pFirst.x].getType() == IChess.ChessType.TYP_KING
                 && board[pFinal.y][pFinal.x].getType() == IChess.ChessType.TYP_ROOK) {
             
-            
-            
-            
-            
-            
             if(pFinal.x > pFirst.x){
                 board[pFinal.y][pFinal.x - 2] = board[pFinal.y][pFinal.x];
                 board[pFinal.y][pFinal.x - 1] = board[pFirst.y][pFirst.x];
@@ -250,7 +243,8 @@ public class ChessBoard {
     }
     
     /**
-     *
+     * This method is to get the king state to know which piece can move without 
+     * putting his king in a threaten state
      * @param color
      * @return
      */
@@ -303,7 +297,10 @@ public class ChessBoard {
         return ChessKingState.KING_SAFE;
         //Here return
     }
-    
+    /**
+     * This method clones a ChessBoard and all the pieces on it
+     * @return a copy of the main ChessBoard with all pieces on place
+     */
     public ChessBoard clone() {
         ChessBoard cloB = new ChessBoard();
         for (int i = 0; i < IChess.BOARD_HEIGHT; i++) {
@@ -318,8 +315,10 @@ public class ChessBoard {
     }
     
     /**
-     *
-     * @return
+     * This method undo the last move done from the last one to the first
+     * 
+     * @return a boolean to determinate the round (true for all the rounds and false for the first one)
+     * and disable the function if it's the first round 
      */
     public boolean undoLastMove() {
         if (listBack.size() > 0) {
@@ -369,10 +368,10 @@ public class ChessBoard {
     }
     
     /**
-     *
-     * @param color
-     * @param isPlaying
-     * @return
+     * This method displays a timer that represents the time played by each player
+     * @param color to detect which timer is increased (white or black)
+     * @param isPlaying to detect which player is playing
+     * @return a long that represent a timer in milliseconds
      */
     public long getPlayerDuration(ChessColor color, boolean isPlaying) {
         long currentTime = System.currentTimeMillis() - startTime;
@@ -394,9 +393,9 @@ public class ChessBoard {
     }
     
     /**
-     *
-     * @param p
-     * @param cp
+     * This method set a piece on the board
+     * @param p is the piece you want to set
+     * @param cp is the position you want to put your piece in
      */
     public void setPiece(Piece p, ChessPosition cp) {
         this.board[cp.y][cp.x] = p;
