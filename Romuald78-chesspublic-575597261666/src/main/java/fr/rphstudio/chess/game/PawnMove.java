@@ -15,7 +15,12 @@ import java.util.List;
  * @author azz-kevinf
  */
 public class PawnMove implements IMove {
-
+/**
+ * This function allows the mouvement for the pawn like eat in diagonal forward one square in front him , can move to the square directly in front if the case is clear and for it's first moovement he can move to two squares  
+ * @param pos acutal conrdinate for eacch pawn on (x,y)
+ * @param board the board with every Chess piece 
+ * @return all possible movements  for the pawn
+ */
     @Override
     public List<IChess.ChessPosition> getPossibleMove(IChess.ChessPosition pos, ChessBoard board) {
 
@@ -58,7 +63,7 @@ public class PawnMove implements IMove {
                     }
                 }
             }
-            //Can onmy move 1 "y"
+            //Can only move 1 "y"
             possiblePos = new IChess.ChessPosition(pos.x, pos.y + 1);
             if (possiblePos.x <= 7 && possiblePos.x >= 0 && possiblePos.y >= 0 && possiblePos.y <= 7) {
                 //Can't move if the case in front him are null 

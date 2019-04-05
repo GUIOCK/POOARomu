@@ -15,7 +15,12 @@ import java.util.List;
  * @author azz-kevinf
  */
 public class RookMove implements IMove {
-
+/**
+ * This function call the method wich allows the Orthogonal moovement and applied
+ * @param pos acutal conrdinate for eacch pawn on (x,y)
+ * @param board the board with every Chess piece 
+ * @return all the Orthogonals movements until the last block who the piece blocks him
+ */
     @Override
     public List<IChess.ChessPosition> getPossibleMove(IChess.ChessPosition pos, ChessBoard board) {
 
