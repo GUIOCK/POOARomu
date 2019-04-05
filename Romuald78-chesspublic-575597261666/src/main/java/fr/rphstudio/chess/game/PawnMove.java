@@ -16,10 +16,11 @@ import java.util.List;
  */
 public class PawnMove implements IMove {
 /**
- * This function allows the mouvement for the pawn like eat in diagonal forward one square in front him , can move to the square directly in front if the case is clear and for it's first moovement he can move to two squares  
- * @param pos acutal conrdinate for eacch pawn on (x,y)
+ * This function allows the mouvement for the pawn like eat in diagonal forward one square in front it, 
+ * it can move to the square directly in front of the case is clear and for it's first moovement he can move to two squares  
+ * @param pos actual coordinate for each pawn on (x,y)
  * @param board the board with every Chess piece 
- * @return all possible movements  for the pawn
+ * @return all possible movements for the pawns
  */
     @Override
     public List<IChess.ChessPosition> getPossibleMove(IChess.ChessPosition pos, ChessBoard board) {

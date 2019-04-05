@@ -16,6 +16,12 @@ import java.util.List;
  */
 public class KingMove implements IMove {
     
+    /**
+     * Set up available move for the King with a for() to check every available places around him.
+     * @param pos Get the coordinate of the King to check the surrounding locations.
+     * @param board Get the board for the other position of each pieces.
+     * @return The list of possible moves for the king.
+     */
     @Override
     public List<IChess.ChessPosition> getPossibleMove(IChess.ChessPosition pos, ChessBoard board) {
         
@@ -41,7 +47,12 @@ public class KingMove implements IMove {
                 }
             }
         }
-             
+        
+        /**
+         * In case the Little or Big Rook are available to the player, add the possible position to the list.
+         * The position to Roque is set up on the rook.
+         */  
+        
         if(UtilMove.LilRoque(board, pos)){
             lilRoque = new IChess.ChessPosition(pos.x + 3,pos.y);
             ListPossiblePos.add(lilRoque);

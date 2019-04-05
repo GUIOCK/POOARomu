@@ -11,11 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * BishopMove manage the possible move of every Bishop in the game.
  * @author DOOM GUYS.
  */
 public class BishopMove implements IMove {
 
+    /**
+     * This function call the method which allows set the Diagonal movement and apply it
+     * @param pos 
+     * @param board
+     * @return 
+     */
     @Override
     public List<IChess.ChessPosition> getPossibleMove(IChess.ChessPosition pos, ChessBoard board) {
         return UtilMove.DiagonalMove(pos, board);

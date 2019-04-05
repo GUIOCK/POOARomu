@@ -18,6 +18,13 @@ import java.util.List;
  */
 public class KnightMove implements IMove {
 
+    /**
+     * The base for our movement, the Knight can jump pieces, and moves in a maximum of 8 directions.
+     * @param pos the position of the Knight chosen by the player.
+     * @param board the position of each pieces left on the board.
+     * @return 
+     */
+    
     @Override
     public List<IChess.ChessPosition> getPossibleMove(IChess.ChessPosition pos, ChessBoard board) {
 
@@ -26,6 +33,8 @@ public class KnightMove implements IMove {
 
         for (int i = 0; i < IChess.BOARD_HEIGHT; i++) {
             for (int j = 0; j < IChess.BOARD_WIDTH; j++) {
+                
+                
                 if (Math.abs((i - pos.x)) + Math.abs((j - pos.y)) == 3) {
 
                     if (i - pos.x != 0 && j - pos.y != 0) {
