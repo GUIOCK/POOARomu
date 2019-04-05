@@ -36,7 +36,6 @@ public class ChessModel implements IChess {
 
     @Override
     public void reinit() {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         this.chessboard = new ChessBoard();
     }
 

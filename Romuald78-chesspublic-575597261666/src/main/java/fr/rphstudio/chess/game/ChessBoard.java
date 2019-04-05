@@ -194,7 +194,8 @@ public class ChessBoard {
         }
         startTime = System.currentTimeMillis();
         listBack.add(getBack);
-        if (null != board[pFinal.y][pFinal.x]) {
+        if (null != board[pFinal.y][pFinal.x] 
+                && board[pFirst.y][pFirst.x].getColor() != board[pFinal.y][pFinal.x].getColor()) {
             if (board[pFinal.y][pFinal.x].getColor() == IChess.ChessColor.CLR_WHITE) {
                 whiteP.add(board[pFinal.y][pFinal.x].getType());
             } else if (board[pFinal.y][pFinal.x].getColor() == IChess.ChessColor.CLR_BLACK) {
