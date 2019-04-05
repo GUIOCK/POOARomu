@@ -9,7 +9,7 @@ import fr.rphstudio.chess.interf.IChess.ChessPosition;
 import java.util.List;
 
 /**
- *
+ * The trilogy
  * @author DOOM GUYS.
  */
 public class BackToTheFuture {
